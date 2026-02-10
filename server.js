@@ -290,6 +290,77 @@ app.post('/api/chat', async (req, res) => {
   });
 });
 
+// Load users database
+const usersData = require('./data/users.json');
+
+// API: Login
+app.post('/api/login', (req, res) => {
+  const { email, password } = req.body;
+  
+  // Validate input
+  if (!email || !password) {
+    return res.status(400).json({ success: false, message: 'Email and password required' });
+  }
+  
+  // Find user
+  const user = usersData.users.find(u => u.email === email && u.password === password);
+  
+  if (user) {
+    // Generate session token
+    const token = 'token_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    usersData.sessions[token] = {
+      userId: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      created: new Date().toISOString()
+    };
+    fs.writeFileSync('./data/users.json', JSON.stringify(usersData, null, 2));
+    
+    res.json({
+      success: true,
+      message: 'Login successful',
+      token: token,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role
+      }
+    });
+  } else {
+    res.status(401).json({ success: false, message: 'Invalid email or password' });
+  }
+});
+
+// API: Verify token
+app.get('/api/verify-token', (req, res) => {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+  
+  if (!token) {
+    return res.status(401).json({ success: false, message: 'No token provided' });
+  }
+  
+  const session = usersData.sessions[token];
+  if (session) {
+    res.json({ success: true, user: session });
+  } else {
+    res.status(401).json({ success: false, message: 'Invalid or expired token' });
+  }
+});
+
+// API: Logout
+app.post('/api/logout', (req, res) => {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+  
+  if (token && usersData.sessions[token]) {
+    delete usersData.sessions[token];
+    fs.writeFileSync('./data/users.json', JSON.stringify(usersData, null, 2));
+  }
+  
+  res.json({ success: true, message: 'Logged out successfully' });
+});
+
 // API: Get conversations
 app.get('/api/conversations', (req, res) => {
   res.json(conversations.slice(-50));

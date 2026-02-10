@@ -347,9 +347,8 @@
   </div>
 
   <script>
-    // Default credentials
-    const DEFAULT_EMAIL = 'admin@clawd.com';
-    const DEFAULT_PASSWORD = 'clawd123';
+    // API Configuration
+    const API_URL = window.location.origin;
 
     function openLogin() {
       document.getElementById('loginModal').classList.add('active');
@@ -360,34 +359,105 @@
       document.getElementById('errorMsg').classList.remove('show');
     }
 
-    function handleLogin(e) {
+    async function handleLogin(e) {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
+      const loginBtn = document.getElementById('loginBtn');
       
-      if (email === DEFAULT_EMAIL && password === DEFAULT_PASSWORD) {
-        const userInitial = email.charAt(0).toUpperCase();
-        document.getElementById('userAvatar').textContent = userInitial;
-        document.getElementById('userName').textContent = 'Admin';
-        document.getElementById('headerUserName').textContent = 'Admin';
-        closeLogin();
-        document.getElementById('landingPage').classList.add('hidden');
-        document.getElementById('dashboardSection').classList.add('active');
-      } else {
+      loginBtn.textContent = 'Signing in...';
+      loginBtn.disabled = true;
+      
+      try {
+        const response = await fetch(API_URL + '/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('userName', data.user.name);
+          localStorage.setItem('userEmail', data.user.email);
+          
+          document.getElementById('userAvatar').textContent = data.user.name.charAt(0).toUpperCase();
+          document.getElementById('userName').textContent = data.user.name;
+          document.getElementById('headerUserName').textContent = data.user.name;
+          
+          closeLogin();
+          document.getElementById('landingPage').classList.add('hidden');
+          document.getElementById('dashboardSection').classList.add('active');
+        } else {
+          document.getElementById('errorMsg').textContent = data.message || 'Login failed';
+          document.getElementById('errorMsg').classList.add('show');
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        document.getElementById('errorMsg').textContent = 'Connection error. Please try again.';
         document.getElementById('errorMsg').classList.add('show');
       }
+      
+      loginBtn.textContent = 'Sign In';
+      loginBtn.disabled = false;
     }
 
-    function logout() {
+    async function logout() {
+      const token = localStorage.getItem('authToken');
+      
+      try {
+        await fetch(API_URL + '/api/logout', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+      } catch (error) {
+        console.log('Logout API error:', error);
+      }
+      
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userEmail');
+      
       document.getElementById('dashboardSection').classList.remove('active');
       document.getElementById('landingPage').classList.remove('hidden');
       document.getElementById('loginEmail').value = '';
       document.getElementById('loginPassword').value = '';
     }
 
-    // FAQ accordion
+    window.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('authToken');
+      const userName = localStorage.getItem('userName');
+      
+      if (token && userName) {
+        fetch(API_URL + '/api/verify-token', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            document.getElementById('userAvatar').textContent = data.user.name.charAt(0).toUpperCase();
+            document.getElementById('userName').textContent = data.user.name;
+            document.getElementById('headerUserName').textContent = data.user.name;
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.add('active');
+          } else {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('userName');
+          localStorage.removeItem('userEmail');
+        });
+      }
+    });
+
     document.querySelectorAll('.faq-question').forEach(q => {
       q.addEventListener('click', () => {
         const item = q.parentElement;
         item.classList.toggle('active');
       });
+    });
