@@ -46,6 +46,34 @@
       "name": "Admin",
       "role": "admin",
       "created": "2026-02-10T10:46:54.023Z"
+    },
+    "token_1770721866840_nn81zkyyn": {
+      "userId": 1,
+      "email": "admin@clawd.com",
+      "name": "Admin",
+      "role": "admin",
+      "created": "2026-02-10T11:11:06.840Z"
+    },
+    "token_1770722266767_7z6zilnkr": {
+      "userId": 1,
+      "email": "admin@clawd.com",
+      "name": "Admin",
+      "role": "admin",
+      "created": "2026-02-10T11:17:46.767Z"
+    },
+    "token_1770722581923_fdno3uepm": {
+      "userId": 1,
+      "email": "admin@clawd.com",
+      "name": "Admin",
+      "role": "admin",
+      "created": "2026-02-10T11:23:01.923Z"
+    },
+    "token_1770722739942_lji0ooy73": {
+      "userId": 1,
+      "email": "admin@clawd.com",
+      "name": "Admin",
+      "role": "admin",
+      "created": "2026-02-10T11:25:39.942Z"
     }
   }
 }

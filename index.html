@@ -1,102 +1,381 @@
-              <div class="integration-info">
-                <div class="integration-name">${int.name}</div>
-                <div class="integration-status">${int.status === 'connected' ? 'Connected' : 'Not connected'}</div>
-              </div>
-              <button class="integration-toggle ${int.status}" onclick="this.classList.toggle('active')"></button>
-            </div>
-          `).join('');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clawd Support - AI Customer Support</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #0a0a0f; color: #fff; overflow-x: hidden; }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 20px 80px; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); }
+    .hero h1 { font-size: clamp(40px, 8vw, 72px); font-weight: 800; margin-bottom: 20px; background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 20px; color: #9a9aaa; max-width: 600px; margin-bottom: 40px; }
+    .btn { padding: 16px 36px; border-radius: 30px; font-size: 16px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; border: none; cursor: pointer; }
+    .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4); }
+    .stats { display: flex; gap: 40px; margin-top: 60px; flex-wrap: wrap; justify-content: center; }
+    .stat { text-align: center; padding: 24px 40px; background: rgba(255,255,255,0.05); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); }
+    .stat-value { font-size: 36px; font-weight: 700; color: #6366f1; }
+    .stat-label { font-size: 14px; color: #9a9aaa; margin-top: 8px; }
+    .section { padding: 100px 40px; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-header h2 { font-size: 40px; font-weight: 700; margin-bottom: 16px; }
+    .section-header p { color: #9a9aaa; font-size: 18px; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; }
+    .feature { background: #16161e; border: 1px solid #2a2a36; border-radius: 20px; padding: 32px; transition: all 0.3s; }
+    .feature:hover { transform: translateY(-8px); border-color: #6366f1; }
+    .feature-icon { width: 56px; height: 56px; background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 20px; }
+    .feature h3 { font-size: 22px; margin-bottom: 12px; }
+    .feature p { color: #9a9aaa; line-height: 1.7; }
+    .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .price-card { background: #16161e; border: 1px solid #2a2a36; border-radius: 24px; padding: 44px; position: relative; }
+    .price-card.popular { border: 2px solid #6366f1; background: linear-gradient(180deg, rgba(99,102,241,0.1) 0%, #16161e 100%); }
+    .popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #6366f1, #a855f7); padding: 8px 24px; border-radius: 50px; font-size: 13px; font-weight: 600; }
+    .price-name { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+    .price-desc { color: #9a9aaa; margin-bottom: 24px; }
+    .price { font-size: 48px; font-weight: 800; color: #6366f1; }
+    .price span { font-size: 16px; color: #9a9aaa; }
+    .price-features { list-style: none; margin: 32px 0; }
+    .price-features li { padding: 12px 0; border-bottom: 1px solid #2a2a36; display: flex; align-items: center; gap: 12px; }
+    .price-features li:last-child { border-bottom: none; }
+    .price-features i { color: #30d158; }
+    footer { padding: 60px 40px; border-top: 1px solid #2a2a36; text-align: center; color: #9a9aaa; }
+    .modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000; }
+    .modal.active { display: flex; }
+    .modal-card { background: #16161e; border: 1px solid #2a2a36; border-radius: 20px; padding: 44px; max-width: 420px; width: 90%; }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: #9a9aaa; font-size: 28px; cursor: pointer; }
+    .modal h2 { font-size: 26px; margin-bottom: 24px; text-align: center; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 10px; color: #9a9aaa; }
+    .form-group input { width: 100%; padding: 14px 18px; border-radius: 12px; border: 1px solid #2a2a36; background: #111118; color: #fff; font-size: 15px; }
+    .form-group input:focus { outline: none; border-color: #6366f1; }
+    .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border: none; border-radius: 30px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+    .submit-btn:hover { transform: scale(1.02); }
+    .tab-btns { display: flex; gap: 12px; margin-bottom: 24px; }
+    .tab-btn { flex: 1; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; }
+    .tab-btn.active { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; }
+    .tab-btn.inactive { background: #111118; color: #9a9aaa; border: 1px solid #2a2a36; }
+    .error { color: #ef4444; font-size: 14px; margin-top: 16px; text-align: center; display: none; padding: 12px; background: rgba(239,68,68,0.1); border-radius: 10px; }
+    .error.show { display: block; }
+    .dashboard { display: none; min-height: 100vh; background: #0a0a0f; padding-top: 72px; }
+    .dashboard.active { display: block; }
+    .dash-layout { display: flex; }
+    .sidebar { width: 260px; background: #111118; border-right: 1px solid #2a2a36; padding: 24px 0; position: fixed; height: calc(100vh - 72px); }
+    .sidebar-logo { padding: 0 24px 24px; border-bottom: 1px solid #2a2a36; margin-bottom: 20px; font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .sidebar-nav { list-style: none; padding: 0 12px; }
+    .sidebar-nav a { display: flex; align-items: center; gap: 12px; padding: 14px 18px; color: #9a9aaa; text-decoration: none; border-radius: 12px; margin-bottom: 6px; transition: all 0.3s; }
+    .sidebar-nav a:hover, .sidebar-nav a.active { background: rgba(99,102,241,0.2); color: #fff; }
+    .sidebar-nav a.active { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .main { flex: 1; margin-left: 260px; padding: 32px; }
+    .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 36px; }
+    .dash-header h1 { font-size: 28px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 36px; }
+    .dash-stat { background: #16161e; border: 1px solid #2a2a36; border-radius: 16px; padding: 28px; }
+    .dash-stat-icon { width: 48px; height: 48px; background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+    .dash-stat-value { font-size: 34px; font-weight: 700; background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .dash-stat-label { color: #9a9aaa; margin-top: 6px; }
+    .card { background: #16161e; border: 1px solid #2a2a36; border-radius: 16px; padding: 28px; }
+    .card h3 { font-size: 18px; margin-bottom: 20px; }
+    .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .action { display: flex; align-items: center; gap: 14px; padding: 18px; background: #111118; border: 1px solid #2a2a36; border-radius: 14px; color: #fff; text-decoration: none; transition: all 0.3s; }
+    .action:hover { border-color: #6366f1; background: rgba(99,102,241,0.1); }
+    .action i { width: 44px; height: 44px; background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    @media (max-width: 768px) { .sidebar { display: none; } .main { margin-left: 0; } }
+  </style>
+</head>
+<body>
+  <div class="landing-page" id="landingPage">
+    <div class="hero">
+      <h1>Clawd Support</h1>
+      <p>AI-powered customer service automation. 24/7 availability. Instant responses. Zero wait times.</p>
+      <button class="btn btn-primary" onclick="openLogin()">Get Started <i class="fas fa-arrow-right"></i></button>
+      <div class="stats">
+        <div class="stat"><div class="stat-value">99.9%</div><div class="stat-label">Uptime</div></div>
+        <div class="stat"><div class="stat-value">24/7</div><div class="stat-label">Available</div></div>
+        <div class="stat"><div class="stat-value">-80%</div><div class="stat-label">Response Time</div></div>
+        <div class="stat"><div class="stat-value">$2K+</div><div class="stat-label">Monthly Savings</div></div>
+      </div>
+    </div>
+
+    <section class="section features" id="features">
+      <div class="section-header"><h2>Powerful Features</h2><p>Everything you need for professional customer support</p></div>
+      <div class="features">
+        <div class="feature"><div class="feature-icon">💬</div><h3>Smart Conversations</h3><p>AI understands context and provides accurate, personalized responses.</p></div>
+        <div class="feature"><div class="feature-icon">📱</div><h3>Multi-Platform</h3><p>Deploy on website, WhatsApp, Telegram, and more.</p></div>
+        <div class="feature"><div class="feature-icon">📊</div><h3>Analytics Dashboard</h3><p>Track conversations, satisfaction, and performance metrics.</p></div>
+        <div class="feature"><div class="feature-icon">🎨</div><h3>Fully Customizable</h3><p>Match your brand colors and customize everything.</p></div>
+        <div class="feature"><div class="feature-icon">📚</div><h3>Knowledge Base</h3><p>Train your chatbot with your own content in seconds.</p></div>
+        <div class="feature"><div class="feature-icon">🔒</div><h3>Complete Privacy</h3><p>Your data stays on your server. No tracking, no selling.</p></div>
+      </div>
+    </section>
+
+    <section class="section pricing" id="pricing">
+      <div class="section-header"><h2>Simple Pricing</h2><p>One-time payment. No monthly fees.</p></div>
+      <div class="pricing">
+        <div class="price-card">
+          <div class="price-name">Starter</div>
+          <div class="price-desc">For individuals</div>
+          <div class="price">$99 <span>/one-time</span></div>
+          <ul class="price-features">
+            <li><i class="fas fa-check"></i> Personal use</li>
+            <li><i class="fas fa-check"></i> 1 chatbot</li>
+            <li><i class="fas fa-check"></i> Website widget</li>
+            <li><i class="fas fa-check"></i> 50 Q&A pairs</li>
+          </ul>
+          <button class="btn btn-primary" style="width:100%" onclick="openLogin()">Get Started</button>
+        </div>
+        <div class="price-card popular">
+          <div class="popular-badge">Most Popular</div>
+          <div class="price-name">Professional</div>
+          <div class="price-desc">For businesses</div>
+          <div class="price">$199 <span>/one-time</span></div>
+          <ul class="price-features">
+            <li><i class="fas fa-check"></i> Business license</li>
+            <li><i class="fas fa-check"></i> 5 chatbots</li>
+            <li><i class="fas fa-check"></i> All platforms</li>
+            <li><i class="fas fa-check"></i> 200 Q&A pairs</li>
+            <li><i class="fas fa-check"></i> Analytics dashboard</li>
+            <li><i class="fas fa-check"></i> Resale rights (10 clients)</li>
+          </ul>
+          <button class="btn btn-primary" style="width:100%" onclick="openLogin()">Get Started</button>
+        </div>
+        <div class="price-card">
+          <div class="price-name">Enterprise</div>
+          <div class="price-desc">For agencies</div>
+          <div class="price">$399 <span>/one-time</span></div>
+          <ul class="price-features">
+            <li><i class="fas fa-check"></i> Unlimited chatbots</li>
+            <li><i class="fas fa-check"></i> White-label</li>
+            <li><i class="fas fa-check"></i> Custom integrations</li>
+            <li><i class="fas fa-check"></i> Unlimited resale</li>
+          </ul>
+          <button class="btn btn-primary" style="width:100%" onclick="openLogin()">Get Started</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Clawd Support. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <div class="modal" id="loginModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeLogin()">&times;</button>
+      <h2 id="modalTitle">Welcome Back</h2>
+      <div class="tab-btns">
+        <button class="tab-btn active" id="loginTabBtn" onclick="showTab('login')">Login</button>
+        <button class="tab-btn inactive" id="signupTabBtn" onclick="showTab('signup')">Sign Up</button>
+      </div>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="Enter your email" required></div>
+        <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="Enter your password" required></div>
+        <button type="submit" class="submit-btn" id="loginBtn">Sign In</button>
+        <p class="error" id="errorMsg"></p>
+      </form>
+      <form id="signupForm" onsubmit="handleSignup(event)" style="display:none">
+        <div class="form-group"><label>Full Name</label><input type="text" id="signupName" placeholder="Enter your name" required></div>
+        <div class="form-group"><label>Email</label><input type="email" id="signupEmail" placeholder="Enter your email" required></div>
+        <div class="form-group"><label>Password</label><input type="password" id="signupPassword" placeholder="Create a password" required></div>
+        <div class="form-group"><label>Confirm Password</label><input type="password" id="signupConfirm" placeholder="Confirm your password" required></div>
+        <button type="submit" class="submit-btn" id="signupBtn">Create Account</button>
+        <p class="error" id="signupError"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="dashboard" id="dashboardPage">
+    <div class="dash-layout">
+      <aside class="sidebar">
+        <div class="sidebar-logo">🤖 Clawd Support</div>
+        <ul class="sidebar-nav">
+          <li><a href="#" class="active" onclick="showSection('overview')"><i class="fas fa-home"></i> Dashboard</a></li>
+          <li><a href="#" onclick="showSection('conversations')"><i class="fas fa-comments"></i> Conversations</a></li>
+          <li><a href="#" onclick="showSection('chatbots')"><i class="fas fa-robot"></i> Chatbots</a></li>
+          <li><a href="#" onclick="showSection('analytics')"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+          <li><a href="#" onclick="showSection('integrations')"><i class="fas fa-plug"></i> Integrations</a></li>
+          <li><a href="#" onclick="showSection('settings')"><i class="fas fa-cog"></i> Settings</a></li>
+        </ul>
+      </aside>
+      <main class="main">
+        <div class="dash-header">
+          <h1 id="sectionTitle">Dashboard</h1>
+          <button class="btn btn-primary" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+        <div class="stats-grid" id="statsGrid">
+          <div class="dash-stat"><div class="dash-stat-icon">💬</div><div class="dash-stat-value" id="statConv">1,234</div><div class="dash-stat-label">Total Conversations</div></div>
+          <div class="dash-stat"><div class="dash-stat-icon">👥</div><div class="dash-stat-value" id="statUsers">567</div><div class="dash-stat-label">Active Users</div></div>
+          <div class="dash-stat"><div class="dash-stat-icon">⭐</div><div class="dash-stat-value" id="statRating">4.8</div><div class="dash-stat-label">Avg. Rating</div></div>
+          <div class="dash-stat"><div class="dash-stat-icon">📈</div><div class="dash-stat-value" id="statGrowth">+23%</div><div class="dash-stat-label">Growth Rate</div></div>
+        </div>
+        <div class="card">
+          <h3>Quick Actions</h3>
+          <div class="quick-actions">
+            <div class="action"><i class="fas fa-plus"></i><span>New Chatbot</span></div>
+            <div class="action"><i class="fas fa-edit"></i><span>Edit Knowledge</span></div>
+            <div class="action"><i class="fas fa-chart-line"></i><span>View Analytics</span></div>
+            <div class="action"><i class="fas fa-plug"></i><span>Add Integration</span></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = window.location.origin;
+
+    function openLogin() { document.getElementById('loginModal').classList.add('active'); }
+    function closeLogin() { document.getElementById('loginModal').classList.remove('active'); }
+
+    function showTab(tab) {
+      const loginTab = document.getElementById('loginTabBtn');
+      const signupTab = document.getElementById('signupTabBtn');
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+      const modalTitle = document.getElementById('modalTitle');
+      
+      if (tab === 'login') {
+        loginTab.className = 'tab-btn active';
+        signupTab.className = 'tab-btn inactive';
+        loginForm.style.display = 'block';
+        signupForm.style.display = 'none';
+        modalTitle.textContent = 'Welcome Back';
+      } else {
+        signupTab.className = 'tab-btn active';
+        loginTab.className = 'tab-btn inactive';
+        signupForm.style.display = 'block';
+        loginForm.style.display = 'none';
+        modalTitle.textContent = 'Create Account';
+      }
+      document.getElementById('errorMsg').classList.remove('show');
+      document.getElementById('signupError').classList.remove('show');
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const btn = document.getElementById('loginBtn');
+      
+      btn.textContent = 'Signing in...';
+      btn.disabled = true;
+      
+      try {
+        const res = await fetch(API_URL + '/api/login', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({email, password})
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('userName', data.user.name);
+          localStorage.setItem('userEmail', data.user.email);
+          closeLogin();
+          document.getElementById('landingPage').classList.add('hidden');
+          document.getElementById('dashboardPage').classList.add('active');
+          loadStats();
+        } else {
+          const err = document.getElementById('errorMsg');
+          err.textContent = data.message || 'Login failed';
+          err.classList.add('show');
         }
-      } catch (error) {
-        console.log('Integrations error:', error);
+      } catch (err) {
+        const errEl = document.getElementById('errorMsg');
+        errEl.textContent = 'Connection error. Please try again.';
+        errEl.classList.add('show');
       }
+      btn.textContent = 'Sign In';
+      btn.disabled = false;
     }
 
-    async function updateProfile() {
-      const token = localStorage.getItem('authToken');
-      const name = document.getElementById('settingsName').value;
-      const email = document.getElementById('settingsEmail').value;
+    async function handleSignup(e) {
+      e.preventDefault();
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const confirm = document.getElementById('signupConfirm').value;
+      const btn = document.getElementById('signupBtn');
+      
+      if (password !== confirm) {
+        const err = document.getElementById('signupError');
+        err.textContent = 'Passwords do not match';
+        err.classList.add('show');
+        return;
+      }
+      
+      btn.textContent = 'Creating account...';
+      btn.disabled = true;
       
       try {
-        const response = await fetch(API_URL + '/api/user/profile', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-          body: JSON.stringify({ name, email })
+        const res = await fetch(API_URL + '/api/signup', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({name, email, password})
         });
-        const data = await response.json();
-        alert(data.message);
-      } catch (error) {
-        alert('Error updating profile');
+        const data = await res.json();
+        
+        if (data.success) {
+          showTab('login');
+          document.getElementById('loginEmail').value = email;
+          alert('Account created! Please login.');
+        } else {
+          const err = document.getElementById('signupError');
+          err.textContent = data.message || 'Signup failed';
+          err.classList.add('show');
+        }
+      } catch (err) {
+        const errEl = document.getElementById('signupError');
+        errEl.textContent = 'Connection error';
+        errEl.classList.add('show');
       }
+      btn.textContent = 'Create Account';
+      btn.disabled = false;
     }
 
-    async function changePassword() {
-      const token = localStorage.getItem('authToken');
-      const current = document.getElementById('currentPassword').value;
-      const newPass = document.getElementById('newPassword').value;
-      
+    function logout() {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userEmail');
+      document.getElementById('dashboardPage').classList.remove('active');
+      document.getElementById('landingPage').classList.remove('hidden');
+    }
+
+    function showSection(sec) {
+      document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('sectionTitle').textContent = sec.charAt(0).toUpperCase() + sec.slice(1);
+    }
+
+    async function loadStats() {
       try {
-        const response = await fetch(API_URL + '/api/user/password', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-          body: JSON.stringify({ currentPassword: current, newPassword: newPass })
-        });
-        const data = await response.json();
-        alert(data.message);
-      } catch (error) {
-        alert('Error changing password');
-      }
+        const res = await fetch(API_URL + '/api/dashboard/stats');
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('statConv').textContent = data.stats.total_conversations.toLocaleString();
+          document.getElementById('statUsers').textContent = data.stats.active_users.toLocaleString();
+          document.getElementById('statRating').textContent = data.stats.satisfaction_rate;
+          document.getElementById('statGrowth').textContent = data.stats.growth_rate;
+        }
+      } catch (e) { console.log('Stats error:', e); }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       const token = localStorage.getItem('authToken');
-      const userName = localStorage.getItem('userName');
-      const userEmail = localStorage.getItem('userEmail');
+      const name = localStorage.getItem('userName');
       
-      if (token && userName) {
-        fetch(API_URL + '/api/verify-token', {
-          headers: { 'Authorization': 'Bearer ' + token }
-        })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            document.getElementById('userAvatar').textContent = data.user.name.charAt(0).toUpperCase();
-            document.getElementById('userName').textContent = data.user.name;
-            document.getElementById('userEmail').textContent = data.user.email;
-            document.getElementById('userName').textContent = data.user.name;
-            document.getElementById('settingsName').value = data.user.name;
-            document.getElementById('settingsEmail').value = data.user.email;
-            document.getElementById('landingPage').classList.add('hidden');
-            document.getElementById('dashboardPage').classList.add('active');
-            loadDashboardData();
-          } else {
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('userName');
-            localStorage.removeItem('userEmail');
-          }
-        })
-        .catch(() => {
-          localStorage.removeItem('authToken');
-          localStorage.removeItem('userName');
-          localStorage.removeItem('userEmail');
-        });
+      if (token && name) {
+        fetch(API_URL + '/api/verify-token', {headers: {'Authorization': 'Bearer ' + token}})
+          .then(r => r.json())
+          .then(d => {
+            if (d.success) {
+              document.getElementById('landingPage').classList.add('hidden');
+              document.getElementById('dashboardPage').classList.add('active');
+              loadStats();
+            } else { logout(); }
+          })
+          .catch(() => logout());
       }
-    });
-
-    document.querySelectorAll('.faq-question').forEach(q => {
-      q.addEventListener('click', () => {
-        const item = q.parentElement;
-        item.classList.toggle('active');
-      });
-    });
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
     });
   </script>
 </body>

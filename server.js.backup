@@ -27,8 +27,21 @@ const PORT = config.dashboard.port || 3000;
 
 // Middleware
 app.use(express.json());
+app.use(express.static('public'));
+app.use('/widget', express.static('public'));
+app.use('/views', express.static('views'));
 
-// API routes MUST come before static file serving
+// Serve HTML views
+app.set('view engine', 'html');
+
+// Routes for HTML pages
+app.get('/widget/demo', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'widget-demo.html'));
+});
+
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'dashboard.html'));
+});
 let conversations = [];
 let chatHistory = {};
 
@@ -396,54 +409,6 @@ app.get('/api/knowledge/stats', (req, res) => {
   });
 });
 
-// API: Dashboard stats
-app.get('/api/dashboard/stats', (req, res) => {
-  res.json({
-    success: true,
-    stats: {
-      total_conversations: conversations.length,
-      active_users: new Set(conversations.map(c => c.userId)).size,
-      satisfaction_rate: '4.8',
-      growth_rate: '+23%'
-    }
-  });
-});
-
-// API: Integrations list
-app.get('/api/integrations', (req, res) => {
-  res.json({
-    success: true,
-    integrations: [
-      { id: 'whatsapp', name: 'WhatsApp', color: '#25D366', status: 'connected' },
-      { id: 'telegram', name: 'Telegram', color: '#0088cc', status: 'not_connected' },
-      { id: 'discord', name: 'Discord', color: '#5865F2', status: 'not_connected' },
-      { id: 'slack', name: 'Slack', color: '#4A154B', status: 'not_connected' },
-      { id: 'website', name: 'Website Widget', color: '#6366f1', status: 'connected' },
-      { id: 'openai', name: 'OpenAI', color: '#10a37f', status: 'connected' }
-    ]
-  });
-});
-
-// API: User profile
-app.get('/api/user/profile', (req, res) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res.status(401).json({ success: false, message: 'No token provided' });
-  }
-  // Simplified - in production, verify JWT token
-  res.json({ success: true, user: { name: 'Admin', email: 'admin@clawd.com' } });
-});
-
-// API: Update user profile
-app.put('/api/user/profile', (req, res) => {
-  res.json({ success: true, message: 'Profile updated successfully' });
-});
-
-// API: Change password
-app.put('/api/user/password', (req, res) => {
-  res.json({ success: true, message: 'Password changed successfully' });
-});
-
 // WhatsApp Webhook (Placeholder)
 app.post(config.whatsapp.webhook_path, (req, res) => {
   console.log('WhatsApp webhook received:', JSON.stringify(req.body, null, 2));
@@ -478,8 +443,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = { app, generateAIResponse };
-
-// Static files AFTER all API routes
-app.use(express.static('public'));
-app.use('/widget', express.static('public'));
-app.use('/views', express.static('views'));
