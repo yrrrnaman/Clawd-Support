@@ -74,6 +74,13 @@
       "name": "Admin",
       "role": "admin",
       "created": "2026-02-10T11:25:39.942Z"
+    },
+    "token_1770724029781_zvxdbemje": {
+      "userId": 2,
+      "email": "demo@clawd.com",
+      "name": "Demo User",
+      "role": "user",
+      "created": "2026-02-10T11:47:09.781Z"
     }
   }
 }

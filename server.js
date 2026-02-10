@@ -27,6 +27,9 @@ const PORT = config.dashboard.port || 3000;
 
 // Middleware
 app.use(express.json());
+app.use(express.static('public'));
+app.use('/widget', express.static('public'));
+app.use('/views', express.static('views'));
 
 // API routes MUST come before static file serving
 let conversations = [];
@@ -480,6 +483,3 @@ app.listen(PORT, () => {
 module.exports = { app, generateAIResponse };
 
 // Static files AFTER all API routes
-app.use(express.static('public'));
-app.use('/widget', express.static('public'));
-app.use('/views', express.static('views'));
