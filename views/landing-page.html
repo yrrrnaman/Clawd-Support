@@ -222,6 +222,15 @@ else{st.className='tab-btn active';lt.className='tab-btn inactive';sf.style.disp
 document.getElementById('loginError').className='error';document.getElementById('signupError').className='error';
 }
 document.querySelectorAll('.faq-question').forEach(q=>{q.addEventListener('click',()=>{q.parentElement.classList.toggle('active');});});
+function demoLogin(){
+  localStorage.setItem('authToken','demo_token');
+  localStorage.setItem('userName','Demo User');
+  window.location.href='/dashboard';
+}
+function doLogin(){
+  const form = document.getElementById('loginForm');
+  handleLogin({preventDefault:()=>{}, target:form});
+}
 async function handleLogin(e){e.preventDefault();const email=document.getElementById('loginEmail').value,password=document.getElementById('loginPassword').value,btn=document.getElementById('loginBtn'),err=document.getElementById('loginError');btn.textContent='Signing in...';btn.disabled=true;err.className='error';try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});const d=await r.json();if(d.success){localStorage.setItem('authToken',d.token);localStorage.setItem('userName',d.user.name);window.location.href='/dashboard';}else{err.textContent=d.message||'Login failed';err.className='error show';}}catch(er){err.textContent='Connection failed. Try demo account below.';err.className='error show';}btn.textContent='Sign In';btn.disabled=false;}
 async function handleSignup(e){e.preventDefault();const name=document.getElementById('signupName').value,email=document.getElementById('signupEmail').value,password=document.getElementById('signupPassword').value,confirm=document.getElementById('signupConfirm').value,btn=document.getElementById('signupBtn'),err=document.getElementById('signupError');if(password!==confirm){err.textContent='Passwords do not match';err.className='error show';return;}btn.textContent='Creating...';btn.disabled=true;err.className='error';try{const r=await fetch('/api/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,password})});const d=await r.json();if(d.success){alert('Account created! Please login.');switchTab('login');}else{err.textContent=d.message||'Signup failed';err.className='error show';}}catch(er){err.textContent='Connection failed';err.className='error show';}btn.textContent='Create Account';btn.disabled=false;}
 </script>

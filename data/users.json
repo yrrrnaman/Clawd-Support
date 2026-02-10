@@ -81,6 +81,20 @@
       "name": "Demo User",
       "role": "user",
       "created": "2026-02-10T11:47:09.781Z"
+    },
+    "token_1770726523358_eagmpaeqq": {
+      "userId": 2,
+      "email": "demo@clawd.com",
+      "name": "Demo User",
+      "role": "user",
+      "created": "2026-02-10T12:28:43.358Z"
+    },
+    "token_1770726574700_jbfq67hg4": {
+      "userId": 2,
+      "email": "demo@clawd.com",
+      "name": "Demo User",
+      "role": "user",
+      "created": "2026-02-10T12:29:34.700Z"
     }
   }
 }

@@ -114,7 +114,7 @@ app.get('/', (req, res) => {
 
 // Dashboard (No Login Required)
 app.get('/dashboard', (req, res) => {
-  res.redirect('/dashboard/overview');
+  res.sendFile(path.join(__dirname, 'views', 'dashboard.html'));
 });
 
 // Dashboard Overview (No Login)
