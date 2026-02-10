@@ -15,6 +15,14 @@
       "name": "Demo User",
       "role": "user",
       "created_at": "2026-02-10T00:00:00Z"
+    },
+    {
+      "id": 3,
+      "email": "test@example.com",
+      "password": "test123",
+      "name": "Test User",
+      "role": "user",
+      "created_at": "2026-02-10T10:39:20.015Z"
     }
   ],
   "sessions": {
@@ -24,6 +32,20 @@
       "name": "Admin",
       "role": "admin",
       "created": "2026-02-10T10:31:56.944Z"
+    },
+    "token_1770719964994_w16s1hxbv": {
+      "userId": 3,
+      "email": "test@example.com",
+      "name": "Test User",
+      "role": "user",
+      "created": "2026-02-10T10:39:24.994Z"
+    },
+    "token_1770720414023_kbs9hif21": {
+      "userId": 1,
+      "email": "admin@clawd.com",
+      "name": "Admin",
+      "role": "admin",
+      "created": "2026-02-10T10:46:54.023Z"
     }
   }
 }
