@@ -1,0 +1,78 @@
+{
+  "name": "AI Customer Support",
+  "version": "1.0.0",
+  "description": "Professional AI Customer Support System",
+  
+  "ai_settings": {
+    "provider": "openai",
+    "model": "gpt-4",
+    "api_key": "YOUR_OPENAI_API_KEY_HERE",
+    "temperature": 0.7,
+    "max_tokens": 500,
+    "system_prompt": "You are a professional customer support agent. Be helpful, friendly, and professional. Answer questions about the business clearly and concisely."
+  },
+  
+  "whatsapp": {
+    "enabled": true,
+    "phone_number_id": "YOUR_WHATSAPP_PHONE_NUMBER_ID",
+    "verify_token": "YOUR_VERIFY_TOKEN",
+    "access_token": "YOUR_WHATSAPP_ACCESS_TOKEN",
+    "business_phone_id": "YOUR_BUSINESS_PHONE_ID",
+    "webhook_path": "/webhook/whatsapp"
+  },
+  
+  "website": {
+    "enabled": true,
+    "widget_color": "#6366f1",
+    "widget_position": "bottom-right",
+    "company_name": "Your Company Name",
+    "company_logo": "/logo.png",
+    "welcome_message": "Hi! 👋 Welcome to our support. How can I help you today?",
+    "placeholder": "Type your message...",
+    "response_time": "We typically reply within a few minutes"
+  },
+  
+  "dashboard": {
+    "username": "naman913",
+    "password": "Naman2",
+    "port": 3000
+  },
+  
+  "knowledge_base": {
+    "enabled": true,
+    "file_path": "./data/knowledge_base.json",
+    "fallback_responses": {
+      "greeting": ["Hello! 👋 How can I help you today?", "Hi there! Welcome to our support!", "Good day! How may I assist you?"],
+      "closing": ["Thank you for chatting with us!", "Have a great day!", "We're here if you need more help!"],
+      "fallback": ["I'm not sure about that. Could you rephrase?", "Let me connect you with a human agent.", "I didn't quite understand. Can you try again?"]
+    }
+  },
+  
+  "database": {
+    "type": "json",
+    "path": "./data/conversations.json"
+  },
+  
+  "features": {
+    "human_handoff": true,
+    "collect_email": true,
+    "sentiment_analysis": false,
+    "transcript_export": true,
+    "analytics": true
+  },
+  
+  "business_hours": {
+    "enabled": false,
+    "timezone": "Asia/Kolkata",
+    "hours": {
+      "monday": {"start": "09:00", "end": "18:00"},
+      "tuesday": {"start": "09:00", "end": "18:00"},
+      "wednesday": {"start": "09:00", "end": "18:00"},
+      "thursday": {"start": "09:00", "end": "18:00"},
+      "friday": {"start": "09:00", "end": "18:00"},
+      "saturday": {"start": "10:00", "end": "14:00"},
+      "sunday": {"start": "00:00", "end": "00:00"}
+    },
+    "offline_message": "We're currently closed. Our team will respond during business hours."
+  }
+}

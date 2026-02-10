@@ -1,0 +1,110 @@
+[
+  {
+    "id": "1770620532217",
+    "platform": "website",
+    "customer": "Demo User",
+    "messages": [
+      {
+        "type": "user",
+        "content": "What are your pricing plans?",
+        "timestamp": "2026-02-09T07:02:12.217Z"
+      },
+      {
+        "type": "bot",
+        "content": "I understand. Could you provide more details?",
+        "timestamp": "2026-02-09T07:02:12.217Z"
+      }
+    ],
+    "timestamp": "2026-02-09T07:02:12.217Z"
+  },
+  {
+    "id": "1770620536419",
+    "platform": "website",
+    "customer": "Demo User",
+    "messages": [
+      {
+        "type": "user",
+        "content": "How long does delivery take?",
+        "timestamp": "2026-02-09T07:02:16.419Z"
+      },
+      {
+        "type": "bot",
+        "content": "You can track your order anytime using the tracking link sent to your email.",
+        "timestamp": "2026-02-09T07:02:16.419Z"
+      }
+    ],
+    "timestamp": "2026-02-09T07:02:16.419Z"
+  },
+  {
+    "id": "1770620540271",
+    "platform": "website",
+    "customer": "Demo User",
+    "messages": [
+      {
+        "type": "user",
+        "content": "How can I contact you?",
+        "timestamp": "2026-02-09T07:02:20.271Z"
+      },
+      {
+        "type": "bot",
+        "content": "For immediate assistance, please use the chat or email us at support@yourcompany.com",
+        "timestamp": "2026-02-09T07:02:20.271Z"
+      }
+    ],
+    "timestamp": "2026-02-09T07:02:20.271Z"
+  },
+  {
+    "id": "1770636011574",
+    "platform": "website",
+    "customer": "Demo User",
+    "messages": [
+      {
+        "type": "user",
+        "content": "How long does delivery take?",
+        "timestamp": "2026-02-09T11:20:11.574Z"
+      },
+      {
+        "type": "bot",
+        "content": "You can track your order anytime using the tracking link sent to your email.",
+        "timestamp": "2026-02-09T11:20:11.574Z"
+      }
+    ],
+    "timestamp": "2026-02-09T11:20:11.574Z"
+  },
+  {
+    "id": "1770636062239",
+    "platform": "website",
+    "customer": "Demo User",
+    "messages": [
+      {
+        "type": "user",
+        "content": "How long does delivery take?",
+        "timestamp": "2026-02-09T11:21:02.240Z"
+      },
+      {
+        "type": "bot",
+        "content": "For delivery information, please provide your order number and I'll check the status!",
+        "timestamp": "2026-02-09T11:21:02.240Z"
+      }
+    ],
+    "timestamp": "2026-02-09T11:21:02.240Z"
+  },
+  {
+    "id": "1770636064982",
+    "platform": "website",
+    "customer": "Demo User",
+    "messages": [
+      {
+        "type": "user",
+        "content": "How can I contact you?",
+        "timestamp": "2026-02-09T11:21:04.982Z"
+      },
+      {
+        "type": "bot",
+        "content": "Our support team is available Monday-Saturday, 9 AM - 6 PM.",
+        "timestamp": "2026-02-09T11:21:04.982Z"
+      }
+    ],
+    "timestamp": "2026-02-09T11:21:04.982Z"
+  }
+]

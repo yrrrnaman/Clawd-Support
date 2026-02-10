@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Customer Support - Chat Widget Demo</title>
+  <link rel="stylesheet" href="/css/chat-widget.css">
+  <style>
+    /* Clean Demo Page */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #000000;
+      color: #f5f5f7;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      font-size: 28px;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #007aff, #5856d6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, #86868b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .preview-section {
+      background: #1c1c1e;
+      border-radius: 24px;
+      overflow: hidden;
+      margin-bottom: 60px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .preview-header {
+      background: #2c2c2e;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .preview-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .preview-content {
+      padding: 40px;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 16px;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .preview-icon {
+      font-size: 48px;
+      opacity: 0.5;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .feature-card {
+      background: #1c1c1e;
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .feature-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.5;
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 40px;
+      background: linear-gradient(135deg, #007aff, #5856d6);
+      border-radius: 24px;
+    }
+
+    .cta-section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 24px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background: white;
+      color: #007aff;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 24px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .cta-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 13px;
+    }
+
+    .footer-brand {
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 16px 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .main {
+        padding: 40px 20px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .preview-content {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">🤖</span>
+      <span class="logo-text">AI Customer Support</span>
+    </div>
+    <nav class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/widget/demo">Widget Demo</a>
+      <a href="#features">Features</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Hero -->
+    <div class="hero">
+      <h1>AI-Powered Customer Support</h1>
+      <p>Beautiful, intelligent chat widget with iOS design. Powered by advanced AI to handle customer inquiries 24/7.</p>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview-section">
+      <div class="preview-header">
+        <h2>💬 Live Chat Widget Preview</h2>
+      </div>
+      <div class="preview-content">
+        <div class="preview-icon">💬</div>
+        <p>Chat widget is active! Look for the floating button in the bottom-right corner.</p>
+        <p style="font-size: 14px; opacity: 0.6;">Click it to test the chat experience!</p>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid" id="features">
+      <div class="feature-card">
+        <div class="feature-icon">🌙</div>
+        <h3>Dark/Light Mode</h3>
+        <p>Toggle between themes with a single click. System-wide dark mode support.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">😊</div>
+        <h3>Emoji Reactions</h3>
+        <p>React to messages with emojis. Express feedback instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Quick Replies</h3>
+        <p>One-tap response buttons for common questions.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Fully Responsive</h3>
+        <p>Perfect on all devices. Mobile-first design approach.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>iOS Design</h3>
+        <p>Beautiful SF Pro typography and iOS-inspired aesthetics.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure & Private</h3>
+        <p>Enterprise-grade security with local data storage.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>Ready to Upgrade?</h2>
+      <p>Get started with your own AI customer support system today.</p>
+      <a href="/dashboard" class="cta-btn">Go to Dashboard →</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-brand">🚀 Created by Naman AI Agent Clawd</div>
+    <p>AI Customer Support System v2.0</p>
+  </footer>
+
+  <!-- Chat Widget Configuration -->
+  <script>
+    window.ChatWidgetConfig = {
+      companyName: 'AI Assistant',
+      companyLogo: '🤖',
+      primaryColor: '#1d1d1f',
+      theme: 'dark',
+      apiUrl: '/api/chat'
+    };
+  </script>
+
+  <!-- Chat Widget Script -->
+  <script src="/js/chat-widget.js"></script>
+</body>
+</html>

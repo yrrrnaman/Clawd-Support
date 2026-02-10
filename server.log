@@ -1,0 +1,21 @@
+
+╔══════════════════════════════════════════════════════════╗
+║       🤖 AI Customer Support System                  ║
+╠════════════════════════════════════════════════════════╣
+║  🚀 Server running on: http://localhost:3000          ║
+║  📊 Dashboard: http://localhost:3000/dashboard          ║
+║  💬 Widget Demo: http://localhost:3000/widget/demo     ║
+╚════════════════════════════════════════════════════════╝
+
+📋 Quick Links:
+• Dashboard: http://localhost:3000/dashboard
+• Chat Widget: http://localhost:3000/widget/demo
+• API: http://localhost:3000/api/chat
+
+⚠️  Don't forget to:
+1. Edit config.json with your API keys
+2. Set up WhatsApp Business API credentials
+3. Customize knowledge_base.json
+
+🎯 Ready to serve customers!
+  

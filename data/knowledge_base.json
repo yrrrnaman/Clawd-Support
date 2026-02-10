@@ -1,0 +1,111 @@
+{
+  "categories": [
+    {
+      "name": "General",
+      "keywords": ["hello", "hi", "hey", "good morning", "good afternoon", "good evening"],
+      "responses": [
+        "Hello! 👋 Welcome to our support! How can I assist you today?",
+        "Hi there! Great to have you here! What can I help you with?",
+        "Good day! I'm here to help. What brings you to us today?"
+      ]
+    },
+    {
+      "name": "Pricing",
+      "keywords": ["price", "cost", "expensive", "cheap", "payment", "billing", "discount"],
+      "responses": [
+        "I'd be happy to help with pricing! Could you tell me which product or service you're interested in?",
+        "For our pricing details, please visit our pricing page or I can connect you with our sales team.",
+        "We offer competitive pricing with various plans. What fits your needs?"
+      ]
+    },
+    {
+      "name": "Delivery",
+      "keywords": ["delivery", "shipping", "track", "order", "when", "days", "weeks", "delivery time"],
+      "responses": [
+        "For delivery information, please provide your order number and I'll check the status!",
+        "Standard delivery takes 3-5 business days. Express delivery is available at checkout.",
+        "You can track your order anytime using the tracking link sent to your email."
+      ]
+    },
+    {
+      "name": "Returns",
+      "keywords": ["return", "refund", "exchange", "cancel", "money back", "policy"],
+      "responses": [
+        "We offer a 30-day return policy. Please visit our returns page to initiate a return.",
+        "For refunds, please allow 5-7 business days after we receive your return.",
+        "We accept exchanges within 30 days of purchase. What would you like to exchange?"
+      ]
+    },
+    {
+      "name": "Contact",
+      "keywords": ["contact", "phone", "email", "support", "help", "talk to human", "agent", "office", "address"],
+      "responses": [
+        "You can reach us at support@yourcompany.com or call us at +91-XXXX-XXXXXX",
+        "Our support team is available Monday-Saturday, 9 AM - 6 PM.",
+        "For immediate assistance, please use the chat or email us at support@yourcompany.com"
+      ]
+    },
+    {
+      "name": "Products",
+      "keywords": ["product", "available", "stock", "size", "color", "model", "feature", "specification"],
+      "responses": [
+        "I'd love to help with product information! What specific product are you interested in?",
+        "Most of our products are in stock. Please check our catalog for availability.",
+        "What features are you looking for? I can help you find the perfect product!"
+      ]
+    },
+    {
+      "name": "Technical",
+      "keywords": ["technical", "issue", "problem", "error", "bug", "not working", "broken", "fix"],
+      "responses": [
+        "I'm sorry to hear you're experiencing an issue. Could you describe the problem in more detail?",
+        "For technical support, please try clearing your cache and cookies. If the issue persists, our tech team is here to help.",
+        "What device and browser are you using? This will help us troubleshoot the issue."
+      ]
+    },
+    {
+      "name": "Closing",
+      "keywords": ["bye", "goodbye", "thank", "thanks", "appreciate", "that's all", "no more"],
+      "responses": [
+        "You're welcome! 😊 Feel free to reach out anytime. Have a great day!",
+        "Thank you for contacting us! We're always here to help. Goodbye for now!",
+        "Happy to help! Don't hesitate to return if you need anything else. Take care!"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "What is your return policy?",
+      "answer": "We offer a 30-day return policy. Items must be unused and in original packaging."
+    },
+    {
+      "question": "How long does delivery take?",
+      "answer": "Standard delivery: 3-5 business days. Express delivery: 1-2 business days."
+    },
+    {
+      "question": "Do you ship internationally?",
+      "answer": "Yes, we ship to most countries. International shipping takes 7-14 business days."
+    },
+    {
+      "question": "How can I track my order?",
+      "answer": "Track your order using the link sent to your registered email."
+    },
+    {
+      "question": "What payment methods do you accept?",
+      "answer": "We accept all major credit/debit cards, UPI, net banking, and wallets."
+    }
+  ],
+  "business_info": {
+    "company_name": "Your Company",
+    "tagline": "Your Trusted Partner",
+    "email": "support@yourcompany.com",
+    "phone": "+91-XXXX-XXXXXX",
+    "website": "https://yourcompany.com",
+    "address": "Your Business Address, City, State, PIN",
+    "social_media": {
+      "facebook": "https://facebook.com/yourcompany",
+      "instagram": "https://instagram.com/yourcompany",
+      "twitter": "https://twitter.com/yourcompany"
+    }
+  }
+}
