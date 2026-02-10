@@ -293,6 +293,40 @@ app.post('/api/chat', async (req, res) => {
 // Load users database
 const usersData = require('./data/users.json');
 
+// API: Signup
+app.post('/api/signup', (req, res) => {
+  const { email, password, name } = req.body;
+  
+  // Validate input
+  if (!email || !password || !name) {
+    return res.status(400).json({ success: false, message: 'All fields are required' });
+  }
+  
+  // Check if user already exists
+  const existingUser = usersData.users.find(u => u.email === email);
+  if (existingUser) {
+    return res.status(400).json({ success: false, message: 'Email already registered' });
+  }
+  
+  // Create new user
+  const newUser = {
+    id: usersData.users.length + 1,
+    email: email,
+    password: password,
+    name: name,
+    role: 'user',
+    created_at: new Date().toISOString()
+  };
+  
+  usersData.users.push(newUser);
+  fs.writeFileSync('./data/users.json', JSON.stringify(usersData, null, 2));
+  
+  res.json({
+    success: true,
+    message: 'Account created successfully! Please login.'
+  });
+});
+
 // API: Login
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
