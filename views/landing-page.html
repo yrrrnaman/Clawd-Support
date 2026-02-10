@@ -5,161 +5,196 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0a0f">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>Clawd - AI Customer Support Chatbot</title>
+<title>Clawd - Give Your Bot a Voice</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0a0f;--bg2:#111118;--bg3:#16161e;--border:#2a2a36;--text:#fff;--text2:#9a9aaa;--primary:#6366f1;--primary2:#8b5cf6;--accent:#a855f7;--success:#30d158}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+:root{--bg:#000000;--bg2:#1c1c1e;--bg3:#2c2c2e;--bg4:#3a3a3c;--red:#ff3b30;--red2:#ff453a;--red-light:rgba(255,59,48,0.15);--text:#ffffff;--text2:#8e8e93;--text3:#636366}
+body{font-family:'SF Pro Display',-apple-system, BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;border:none;outline:none}
-nav{position:fixed;top:0;left:0;right:0;height:72px;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:1px solid var(--border)}
-.logo{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:12px;display:flex;align-items:center;justify-content:center}
-.logo-icon img{width:28px;height:28px;object-fit:contain}
+nav{position:fixed;top:0;left:0;right:0;height:72px;background:rgba(0,0,0,0.9);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.logo{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:700}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--red),#ff6961);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
 .nav-links{display:flex;align-items:center;gap:32px}
 .nav-links a{color:var(--text2);font-size:15px;font-weight:500;transition:all 0.3s}
 .nav-links a:hover{color:var(--text)}
-.nav-btn{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;padding:12px 28px;border-radius:30px;font-size:15px;font-weight:600;transition:all 0.3s}
-.hero{min-height:100vh;display:flex;flex-direction:column;padding:120px 40px 60px}
-.hero-content{max-width:1400px;margin:0 auto;width:100%}
-.hero-header{display:flex;align-items:center;gap:16px;margin-bottom:40px}
-.hero-header h1{font-size:28px;font-weight:600}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:40px}
-.stat-card{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:24px;transition:all 0.3s}
-.stat-card:hover{transform:translateY(-4px);border-color:rgba(99,102,241,0.3)}
-.stat-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
-.stat-value{font-size:36px;font-weight:700;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
-.stat-label{font-size:14px;color:var(--text2)}
-.quick-actions{display:flex;gap:16px;margin-bottom:40px;flex-wrap:wrap}
-.action-btn{display:flex;align-items:center;gap:12px;padding:16px 28px;background:var(--bg3);border:1px solid var(--border);border-radius:16px;font-size:15px;font-weight:500;transition:all 0.3s}
-.action-btn:hover{background:rgba(99,102,241,0.1);border-color:var(--primary);transform:translateY(-2px)}
-.action-btn i{font-size:18px;color:var(--primary)}
-.action-btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));border:none;color:#fff}
-.action-btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(99,102,241,0.4)}
-.main-section{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1400px;margin:0 auto;width:100%}
-.features-section{background:var(--bg3);border:1px solid var(--border);border-radius:24px;padding:32px}
-.features-header{display:flex;align-items:center;gap:12px;margin-bottom:28px}
-.features-header i{font-size:20px;color:var(--primary)}
-.features-header h2{font-size:22px;font-weight:600}
-.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.feature-item{display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg2);border:1px solid var(--border);border-radius:14px;transition:all 0.3s}
-.feature-item:hover{border-color:rgba(99,102,241,0.3)}
-.feature-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.feature-info h3{font-size:15px;font-weight:600;margin-bottom:4px}
-.feature-info p{font-size:13px;color:var(--text2)}
-.chat-section{background:var(--bg3);border:1px solid var(--border);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
-.chat-header{display:flex;align-items:center;gap:14px;padding:20px 24px;background:linear-gradient(135deg,var(--primary),var(--accent));border-bottom:none}
-.chat-avatar{width:48px;height:48px;background:rgba(255,255,255,0.2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px}
-.chat-info h3{font-size:17px;font-weight:600;margin-bottom:2px}
-.chat-info p{font-size:13px;opacity:0.9}
-.chat-messages{flex:1;padding:24px;overflow-y:auto;max-height:400px}
-.chat-msg{display:flex;gap:12px;margin-bottom:20px;animation:fadeIn 0.4s ease}
-.chat-msg.user{flex-direction:row-reverse}
-.chat-bubble{max-width:75%;padding:14px 20px;border-radius:20px;font-size:15px;line-height:1.5}
-.chat-msg.bot .chat-bubble{background:var(--bg2);border:1px solid var(--border);border-bottom-left-radius:4px}
-.chat-msg.user .chat-bubble{background:linear-gradient(135deg,var(--primary),var(--accent));border-bottom-right-radius:4px}
-.chat-input{display:flex;gap:12px;padding:16px 20px;border-top:1px solid var(--border)}
-.chat-input input{flex:1;padding:14px 20px;border-radius:30px;border:1px solid var(--border);background:var(--bg2);color:#fff;font-size:15px;outline:none;transition:all 0.3s}
-.chat-input input:focus{border-color:var(--primary)}
-.chat-send{width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;transition:all 0.3s}
-.chat-send:hover{transform:scale(1.1)}
-.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px}
+.nav-btn{background:linear-gradient(135deg,var(--red),#ff6961);color:#fff;padding:12px 24px;border-radius:24px;font-size:15px;font-weight:600;transition:all 0.3s}
+.nav-btn:hover{transform:scale(1.05)}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;text-align:center;padding:140px 40px 80px;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%, rgba(255,59,48,0.15) 0%, transparent 60%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--red-light);border:1px solid rgba(255,59,48,0.3);padding:8px 20px;border-radius:20px;font-size:14px;color:var(--red);font-weight:500;margin-bottom:32px}
+.hero h1{font-size:clamp(48px,10vw,84px);font-weight:700;line-height:1.05;margin-bottom:24px;letter-spacing:-0.02em}
+.hero p{font-size:clamp(18px,2.5vw,22px);color:var(--text2);max-width:600px;margin-bottom:48px;line-height:1.7}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.btn{padding:18px 36px;border-radius:30px;font-size:17px;font-weight:600;display:inline-flex;align-items:center;gap:10px;transition:all 0.3s}
+.btn-primary{background:linear-gradient(135deg,var(--red),#ff6961);color:#fff;box-shadow:0 8px 30px rgba(255,59,48,0.35)}
+.btn-primary:hover{transform:scale(1.05);box-shadow:0 12px 40px rgba(255,59,48,0.45)}
+.btn-secondary{background:var(--bg2);color:#fff;border:1px solid var(--bg4)}
+.btn-secondary:hover{background:var(--bg3)}
+.hero-stats{display:flex;gap:24px;margin-top:80px;flex-wrap:wrap;justify-content:center}
+.hero-stat{text-align:center;padding:24px 40px;background:var(--bg2);border:1px solid var(--bg3);border-radius:24px;min-width:140px}
+.hero-stat-value{font-size:40px;font-weight:700;color:var(--red);margin-bottom:4px}
+.hero-stat-label{font-size:14px;color:var(--text2)}
+.section{padding:120px 40px;position:relative}
+.section-header{text-align:center;margin-bottom:80px}
+.section-header h2{font-size:clamp(36px,5vw,52px);font-weight:700;margin-bottom:16px}
+.section-header p{font-size:18px;color:var(--text2);max-width:600px;margin:0 auto}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1200px;margin:0 auto}
+.feature-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:24px;padding:32px;transition:all 0.4s}
+.feature-card:hover{transform:translateY(-8px);border-color:var(--red);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.feature-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--red),#ff6961);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
+.feature-card h3{font-size:20px;font-weight:600;margin-bottom:10px}
+.feature-card p{color:var(--text2);font-size:15px;line-height:1.7}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;max-width:1100px;margin:0 auto}
+.price-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:24px;padding:40px;position:relative;transition:all 0.4s}
+.price-card:hover{transform:translateY(-8px)}
+.price-card.popular{border:2px solid var(--red);background:linear-gradient(180deg,rgba(255,59,48,0.08) 0%,var(--bg2) 100%)}
+.popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--red),#ff6961);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600}
+.price-name{font-size:24px;font-weight:600;margin-bottom:8px}
+.price-desc{color:var(--text2);margin-bottom:20px;font-size:15px}
+.price{font-size:48px;font-weight:700;color:var(--red)}
+.price span{font-size:16px;color:var(--text2);font-weight:400}
+.price-features{list-style:none;margin:28px 0}
+.price-features li{padding:14px 0;border-bottom:1px solid var(--bg3);display:flex;align-items:center;gap:12px;font-size:15px;color:var(--text2)}
+.price-features li:last-child{border-bottom:none}
+.price-features i{color:var(--red);font-size:16px}
+.price-btn{width:100%;padding:16px;border-radius:24px;font-size:16px;font-weight:600;text-align:center;display:block;transition:all 0.3s}
+.price-btn.primary{background:linear-gradient(135deg,var(--red),#ff6961);color:#fff}
+.price-btn.primary:hover{transform:scale(1.02)}
+.price-btn.secondary{background:transparent;color:#fff;border:1px solid var(--bg4)}
+.price-btn.secondary:hover{background:var(--bg2)}
+.faq-section{max-width:800px;margin:0 auto}
+.faq-item{background:var(--bg2);border:1px solid var(--bg3);border-radius:16px;margin-bottom:12px;overflow:hidden;transition:all 0.3s}
+.faq-item:hover{border-color:var(--red)}
+.faq-question{padding:20px 24px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:16px;font-weight:500;transition:all 0.3s}
+.faq-question:hover{color:var(--red)}
+.faq-question i{color:var(--red);transition:transform 0.3s}
+.faq-item.active .faq-question i{transform:rotate(180deg)}
+.faq-answer{padding:0 24px 20px;color:var(--text2);font-size:15px;display:none;line-height:1.7}
+.faq-item.active .faq-answer{display:block}
+footer{padding:60px 40px;border-top:1px solid var(--bg3);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.footer-links{display:flex;gap:28px}
+.footer-links a{color:var(--text2);font-size:14px;transition:color 0.3s}
+.footer-links a:hover{color:var(--text)}
+.footer-copy{color:var(--text2);font-size:14px}
+.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px}
 .modal.active{display:flex}
-.modal-card{background:var(--bg3);border:1px solid var(--border);border-radius:24px;padding:48px;max-width:440px;width:100%;position:relative;animation:fadeInUp 0.4s ease}
-.modal-close{position:absolute;top:20px;right:20px;width:40px;height:40px;background:var(--bg2);border:1px solid var(--border);border-radius:50%;color:var(--text2);font-size:24px;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center}
-.modal-close:hover{background:rgba(239,68,68,0.2);color:#ef4444;border-color:#ef4444}
+.modal-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:28px;padding:44px;max-width:420px;width:100%;position:relative;animation:fadeInUp 0.4s ease}
+.modal-close{position:absolute;top:20px;right:20px;width:36px;height:36px;background:var(--bg3);border:none;border-radius:50%;color:var(--text2);font-size:20px;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--bg4);color:var(--text)}
 .modal-header{text-align:center;margin-bottom:32px}
-.modal-header .logo-icon{margin:0 auto 20px;width:60px;height:60px;font-size:28px}
-.modal-header h2{font-size:28px;font-weight:700;margin-bottom:8px}
+.modal-header .logo-icon{margin:0 auto 20px;width:56px;height:56px;font-size:26px}
+.modal-header h2{font-size:26px;font-weight:600;margin-bottom:8px}
 .modal-header p{color:var(--text2);font-size:15px}
 .tab-btns{display:flex;gap:12px;margin-bottom:32px}
-.tab-btn{flex:1;padding:14px;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer}
-.tab-btn.active{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;box-shadow:0 4px 20px rgba(99,102,241,0.3)}
-.tab-btn.inactive{background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
+.tab-btn{flex:1;padding:14px;border-radius:24px;font-size:15px;font-weight:600;cursor:pointer}
+.tab-btn.active{background:linear-gradient(135deg,var(--red),#ff6961);color:#fff}
+.tab-btn.inactive{background:var(--bg3);color:var(--text2)}
 .form-group{margin-bottom:20px}
 .form-group label{display:block;font-size:14px;font-weight:500;margin-bottom:10px;color:var(--text2)}
-.form-group input{width:100%;padding:16px 20px;border-radius:14px;border:1px solid var(--border);background:var(--bg2);color:#fff;font-size:16px;transition:all 0.3s}
-.form-group input:focus{outline:none;border-color:var(--primary)}
-.form-group input::placeholder{color:var(--text2)}
-.submit-btn{width:100%;padding:18px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:30px;font-size:17px;font-weight:600;cursor:pointer;transition:all 0.3s}
+.form-group input{width:100%;padding:16px 20px;border-radius:16px;border:1px solid var(--bg3);background:var(--bg);color:#fff;font-size:16px;transition:all 0.3s}
+.form-group input:focus{outline:none;border-color:var(--red)}
+.form-group input::placeholder{color:var(--text3)}
+.submit-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--red),#ff6961);color:#fff;border:none;border-radius:24px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s}
 .submit-btn:hover{transform:scale(1.02)}
 .submit-btn:disabled{opacity:0.6;cursor:not-allowed}
-.error{color:#ef4444;font-size:14px;margin-top:16px;text-align:center;padding:12px;background:rgba(239,68,68,0.1);border-radius:10px;display:none}
+.error{color:var(--red);font-size:14px;margin-top:16px;text-align:center;padding:12px;background:var(--red-light);border-radius:12px;display:none}
 .error.show{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr)}.main-section{grid-template-columns:1fr}.features-grid{grid-template-columns:1fr}}
-@media(max-width:768px){nav{padding:0 20px}.nav-links{display:none}.hero{padding:100px 20px 40px}.stats-grid{grid-template-columns:1fr}.quick-actions{flex-direction:column}.action-btn{width:100%;justify-content:center}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@media(max-width:768px){nav{padding:0 20px}.nav-links{display:none}.hero{padding:120px 20px 60px}.section{padding:80px 20px}.footer{flex-direction:column;text-align:center}.footer-links{flex-wrap:wrap;justify-content:center}}
 </style>
 </head>
 <body>
 <nav>
-<div class="logo"><div class="logo-icon"><img src="/favicon.svg" alt=""></div><span>Clawd</span></div>
+<div class="logo"><div class="logo-icon"><img src="/favicon.svg" alt="" style="width:22px;height:22px;object-fit:contain;"></div><span>Clawd</span></div>
 <div class="nav-links">
-<a href="#">Features</a>
-<a href="#">Pricing</a>
-<a href="#">Documentation</a>
-<button class="nav-btn" onclick="openModal('login')">Get Started</button>
+<a href="#features">Features</a>
+<a href="#pricing">Pricing</a>
+<a href="#faq">FAQ</a>
+<button class="nav-btn" onclick="openModal()">Get Started</button>
 </div>
 </nav>
 <section class="hero">
-<div class="hero-content">
-<div class="hero-header">
-<div class="logo-icon"><img src="/favicon.svg" alt=""></div>
-<h1>Welcome back, Admin</h1>
+<div class="hero-badge"><i class="fas fa-bolt" style="color:var(--red)"></i> AI Customer Support v2.0</div>
+<h1>Smart Support.<br>Zero Wait.</h1>
+<p>Transform customer service with 24/7 AI-powered automation. Never miss a message. Never lose a sale.</p>
+<div class="hero-buttons">
+<button class="btn btn-primary" onclick="openModal()">Get Started <i class="fas fa-arrow-right"></i></button>
+<a href="#features" class="btn btn-secondary">Learn More</a>
 </div>
-<div class="stats-grid">
-<div class="stat-card"><div class="stat-icon"><i class="fas fa-comments"></i></div><div class="stat-value">1,247</div><div class="stat-label">Total Chats</div></div>
-<div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">892</div><div class="stat-label">Active Users</div></div>
-<div class="stat-card"><div class="stat-icon"><i class="fas fa-clock"></i></div><div class="stat-value">0.8s</div><div class="stat-label">Avg Response Time</div></div>
-<div class="stat-card"><div class="stat-icon"><i class="fas fa-robot"></i></div><div class="stat-value">12</div><div class="stat-label">Active Bots</div></div>
+<div class="hero-stats">
+<div class="hero-stat"><div class="hero-stat-value">99.9%</div><div class="hero-stat-label">Uptime</div></div>
+<div class="hero-stat"><div class="hero-stat-value">24/7</div><div class="hero-stat-label">Available</div></div>
+<div class="hero-stat"><div class="hero-stat-value">-80%</div><div class="hero-stat-label">Response Time</div></div>
+<div class="hero-stat"><div class="hero-stat-value">$2K+</div><div class="hero-stat-label">Monthly Savings</div></div>
 </div>
-<div class="quick-actions">
-<button class="action-btn primary" onclick="openModal('login')"><i class="fas fa-plus"></i> Start New Chat</button>
-<button class="action-btn" onclick="openModal('login')"><i class="fas fa-chart-line"></i> Analytics</button>
-<button class="action-btn" onclick="openModal('login')"><i class="fas fa-cog"></i> Settings</button>
-<button class="action-btn" onclick="openModal('login')"><i class="fas fa-robot"></i> Add Bot</button>
-</div>
-<div class="main-section">
-<div class="features-section">
-<div class="features-header"><i class="fas fa-bolt"></i><h2>Quick Actions</h2></div>
+</section>
+<section class="section features" id="features">
+<div class="section-header"><h2>Powerful Features</h2><p>Everything you need for professional customer support</p></div>
 <div class="features-grid">
-<div class="feature-item"><div class="feature-icon"><i class="fas fa-message"></i></div><div class="feature-info"><h3>Smart Replies</h3><p>AI-powered responses</p></div></div>
-<div class="feature-item"><div class="feature-icon"><i class="fas fa-language"></i></div><div class="feature-info"><h3>Multi-Language</h3><p>Support 50+ languages</p></div></div>
-<div class="feature-item"><div class="feature-icon"><i class="fas fa-shield"></i></div><div class="feature-info"><h3>Secure & Private</h3><p>Your data stays safe</p></div></div>
-<div class="feature-item"><div class="feature-icon"><i class="fas fa-plug"></i></div><div class="feature-info"><h3>Easy Integration</h3><p>Connect in minutes</p></div></div>
-<div class="feature-item"><div class="feature-icon"><i class="fas fa-bell"></i></div><div class="feature-info"><h3>Instant Alerts</h3><p>Never miss a message</p></div></div>
-<div class="feature-item"><div class="feature-icon"><i class="fas fa-chart-pie"></i></div><div class="feature-info"><h3>Deep Analytics</h3><p>Track performance</p></div></div>
+<div class="feature-card"><div class="feature-icon"><i class="fas fa-comments"></i></div><h3>Smart Conversations</h3><p>AI understands context and provides accurate, personalized responses tailored to your business.</p></div>
+<div class="feature-card"><div class="feature-icon"><i class="fas fa-mobile-alt"></i></div><h3>Multi-Platform</h3><p>Deploy on website, WhatsApp, Telegram, Discord, and Slack with one click.</p></div>
+<div class="feature-card"><div class="feature-icon"><i class="fas fa-chart-line"></i></div><h3>Analytics Dashboard</h3><p>Track conversations, satisfaction scores, and performance metrics in real-time.</p></div>
+<div class="feature-card"><div class="feature-icon"><i class="fas fa-palette"></i></div><h3>Fully Customizable</h3><p>Match your brand colors, set custom welcome messages, and personalize everything.</p></div>
+<div class="feature-card"><div class="feature-icon"><i class="fas fa-book"></i></div><h3>Knowledge Base</h3><p>Train your chatbot with your own content, FAQs, and documentation in seconds.</p></div>
+<div class="feature-card"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><h3>Complete Privacy</h3><p>Your data stays on your server. No tracking, no selling, no surprises.</p></div>
 </div>
+</section>
+<section class="section pricing" id="pricing">
+<div class="section-header"><h2>Simple Pricing</h2><p>One-time payment. No monthly fees. No surprises.</p></div>
+<div class="pricing-grid">
+<div class="price-card">
+<div class="price-name">Starter</div><div class="price-desc">For individuals</div>
+<div class="price">$99 <span>/one-time</span></div>
+<ul class="price-features">
+<li><i class="fas fa-check"></i> Personal use</li><li><i class="fas fa-check"></i> 1 chatbot</li><li><i class="fas fa-check"></i> Website widget</li><li><i class="fas fa-check"></i> 50 Q&A pairs</li>
+</ul>
+<button class="price-btn secondary" onclick="openModal()">Get Started</button>
 </div>
-<div class="chat-section">
-<div class="chat-header">
-<div class="chat-avatar"><i class="fas fa-robot"></i></div>
-<div class="chat-info"><h3>Clawd AI</h3><p>Online - Ready to help</p></div>
+<div class="price-card popular">
+<div class="popular-badge">Most Popular</div>
+<div class="price-name">Professional</div><div class="price-desc">For businesses</div>
+<div class="price">$199 <span>/one-time</span></div>
+<ul class="price-features">
+<li><i class="fas fa-check"></i> Business license</li><li><i class="fas fa-check"></i> 5 chatbots</li><li><i class="fas fa-check"></i> All platforms</li><li><i class="fas fa-check"></i> 200 Q&A pairs</li><li><i class="fas fa-check"></i> Analytics dashboard</li><li><i class="fas fa-check"></i> Resale rights</li>
+</ul>
+<button class="price-btn primary" onclick="openModal()">Get Started</button>
 </div>
-<div class="chat-messages" id="chatMessages">
-<div class="chat-msg bot"><div class="chat-bubble">Hello! I'm Clawd, your AI assistant. How can I help you today?</div></div>
-<div class="chat-msg bot"><div class="chat-bubble">Try asking me about our features, pricing, or how to get started!</div></div>
-</div>
-<div class="chat-input">
-<input type="text" id="chatInput" placeholder="Type a message..." onkeypress="if(event.key==='Enter')sendChat()">
-<button class="chat-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
-</div>
-</div>
+<div class="price-card">
+<div class="price-name">Enterprise</div><div class="price-desc">For agencies</div>
+<div class="price">$399 <span>/one-time</span></div>
+<ul class="price-features">
+<li><i class="fas fa-check"></i> Unlimited chatbots</li><li><i class="fas fa-check"></i> White-label</li><li><i class="fas fa-check"></i> Custom integrations</li><li><i class="fas fa-check"></i> Unlimited resale</li>
+</ul>
+<button class="price-btn secondary" onclick="openModal()">Get Started</button>
 </div>
 </div>
 </section>
+<section class="section faq-section" id="faq">
+<div class="section-header"><h2>FAQ</h2><p>Common questions answered</p></div>
+<div class="faq-item"><div class="faq-question">Is this a subscription or one-time payment? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">One-time payment only. No monthly fees, no hidden charges. Pay once, own it forever.</div></div>
+<div class="faq-item"><div class="faq-question">Can I resell this to my clients? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes! Professional license includes resale rights for up to 10 clients. Enterprise license includes unlimited resale rights.</div></div>
+<div class="faq-item"><div class="faq-question">What platforms does it support? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Website widget is ready to use. WhatsApp Business API integration is built-in. Telegram and Discord support coming soon.</div></div>
+<div class="faq-item"><div class="faq-question">Where is my data stored? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Your data stays on your server. No tracking, no data collection, no selling. Complete privacy guaranteed.</div></div>
+</section>
+<footer>
+<div class="footer-links">
+<a href="#">Terms</a><a href="#">Privacy</a><a href="#">Support</a><a href="#">Documentation</a>
+</div>
+<div class="footer-copy">&copy; 2026 Clawd. All rights reserved.</div>
+</footer>
 <div class="modal" id="loginModal">
 <div class="modal-card">
 <button class="modal-close" onclick="closeModal()">&times;</button>
-<div class="modal-header"><div class="logo-icon"><img src="/favicon.svg" alt=""></div>
-<h2 id="modalTitle">Welcome Back</h2><p id="modalSubtitle">Sign in to access your dashboard</p>
+<div class="modal-header"><div class="logo-icon" style="margin:0 auto 20px;width:56px;height:56px;font-size:26px"><img src="/favicon.svg" alt="" style="width:32px;height:32px;object-fit:contain;"></div>
+<h2>Welcome Back</h2><p>Sign in to access your dashboard</p>
 </div>
 <div class="tab-btns">
-<button class="tab-btn active" id="loginTabBtn" onclick="switchTab('login')">Login</button>
-<button class="tab-btn inactive" id="signupTabBtn" onclick="switchTab('signup')">Sign Up</button>
+<button class="tab-btn active" onclick="switchTab('login')">Login</button>
+<button class="tab-btn inactive" onclick="switchTab('signup')">Sign Up</button>
 </div>
 <form id="loginForm" onsubmit="handleLogin(event)">
 <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="Enter your email" required></div>
@@ -175,26 +210,20 @@ nav{position:fixed;top:0;left:0;right:0;height:72px;background:rgba(10,10,15,0.9
 <button type="submit" class="submit-btn" id="signupBtn">Create Account</button>
 <p class="error" id="signupError"></p>
 </form>
-<div style="margin-top:20px;text-align:center">
-<button onclick="tryDemoLogin()" style="background:none;border:none;color:var(--primary);cursor:pointer;font-size:14px">Or try Demo Account</button>
-</div>
 </div>
 </div>
 <script>
-const chatResponses=["I understand! Let me help you with that.","That's a great question! Here's what you need to know...","I'm here to assist you 24/7!","Our AI-powered support can handle any inquiry.","Let me connect you with the right information."];
-let chatMessages=document.getElementById('chatMessages'),chatInput=document.getElementById('chatInput');
-function openModal(t){document.getElementById('loginModal').classList.add('active');if(t)switchTab(t);}
+function openModal(){document.getElementById('loginModal').classList.add('active');}
 function closeModal(){document.getElementById('loginModal').classList.remove('active');}
-function switchTab(t){
-const lt=document.getElementById('loginTabBtn'),st=document.getElementById('signupTabBtn'),lf=document.getElementById('loginForm'),sf=document.getElementById('signupForm'),mt=document.getElementById('modalTitle'),ms=document.getElementById('modalSubtitle');
-if(t==='login'){lt.className='tab-btn active';st.className='tab-btn inactive';lf.style.display='block';sf.style.display='none';mt.textContent='Welcome Back';ms.textContent='Sign in to access your dashboard';}
-else{st.className='tab-btn active';lt.className='tab-btn inactive';sf.style.display='block';lf.style.display='none';mt.textContent='Create Account';ms.textContent='Join Clawd Support today';}
+function switchTab(tab){
+const lt=document.querySelectorAll('.tab-btn')[0],st=document.querySelectorAll('.tab-btn')[1],lf=document.getElementById('loginForm'),sf=document.getElementById('signupForm');
+if(tab==='login'){lt.className='tab-btn active';st.className='tab-btn inactive';lf.style.display='block';sf.style.display='none';}
+else{st.className='tab-btn active';lt.className='tab-btn inactive';sf.style.display='block';lf.style.display='none';}
 document.getElementById('loginError').className='error';document.getElementById('signupError').className='error';
 }
-function sendChat(){const msg=chatInput.value.trim();if(!msg)return;chatMessages.innerHTML+='<div class="chat-msg user"><div class="chat-bubble">'+msg+'</div></div>';chatInput.value='';chatMessages.scrollTop=chatMessages.scrollHeight;setTimeout(()=>{const r=chatResponses[Math.floor(Math.random()*chatResponses.length)];chatMessages.innerHTML+='<div class="chat-msg bot"><div class="chat-bubble">'+r+'</div></div>';chatMessages.scrollTop=chatMessages.scrollHeight;},800);}
-async function handleLogin(e){e.preventDefault();const email=document.getElementById('loginEmail').value,password=document.getElementById('loginPassword').value,btn=document.getElementById('loginBtn'),err=document.getElementById('loginError');btn.textContent='Signing in...';btn.disabled=true;err.className='error';try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});const d=await r.json();if(d.success){localStorage.setItem('authToken',d.token);localStorage.setItem('userName',d.user.name);localStorage.setItem('userEmail',d.user.email);window.location.href='/dashboard';}else{err.textContent=d.message||'Login failed';err.className='error show';}}catch(er){err.textContent='Connection failed. Click Demo Account below.';err.className='error show';}btn.textContent='Sign In';btn.disabled=false;}
-async function handleSignup(e){e.preventDefault();const name=document.getElementById('signupName').value,email=document.getElementById('signupEmail').value,password=document.getElementById('signupPassword').value,confirm=document.getElementById('signupConfirm').value,btn=document.getElementById('signupBtn'),err=document.getElementById('signupError');if(password!==confirm){err.textContent='Passwords do not match';err.className='error show';return;}btn.textContent='Creating account...';btn.disabled=true;err.className='error';try{const r=await fetch('/api/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,password})});const d=await r.json();if(d.success){alert('Account created! Please login.');switchTab('login');document.getElementById('loginEmail').value=email;}else{err.textContent=d.message||'Signup failed';err.className='error show';}}catch(er){err.textContent='Connection failed. Please try again.';err.className='error show';}btn.textContent='Create Account';btn.disabled=false;}
-function tryDemoLogin(){document.getElementById('loginEmail').value='demo@clawd.com';document.getElementById('loginPassword').value='demo123';handleLogin({preventDefault:()=>{}});}
+document.querySelectorAll('.faq-question').forEach(q=>{q.addEventListener('click',()=>{q.parentElement.classList.toggle('active');});});
+async function handleLogin(e){e.preventDefault();const email=document.getElementById('loginEmail').value,password=document.getElementById('loginPassword').value,btn=document.getElementById('loginBtn'),err=document.getElementById('loginError');btn.textContent='Signing in...';btn.disabled=true;err.className='error';try{const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});const d=await r.json();if(d.success){localStorage.setItem('authToken',d.token);localStorage.setItem('userName',d.user.name);window.location.href='/dashboard';}else{err.textContent=d.message||'Login failed';err.className='error show';}}catch(er){err.textContent='Connection failed. Try demo account below.';err.className='error show';}btn.textContent='Sign In';btn.disabled=false;}
+async function handleSignup(e){e.preventDefault();const name=document.getElementById('signupName').value,email=document.getElementById('signupEmail').value,password=document.getElementById('signupPassword').value,confirm=document.getElementById('signupConfirm').value,btn=document.getElementById('signupBtn'),err=document.getElementById('signupError');if(password!==confirm){err.textContent='Passwords do not match';err.className='error show';return;}btn.textContent='Creating...';btn.disabled=true;err.className='error';try{const r=await fetch('/api/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,password})});const d=await r.json();if(d.success){alert('Account created! Please login.');switchTab('login');}else{err.textContent=d.message||'Signup failed';err.className='error show';}}catch(er){err.textContent='Connection failed';err.className='error show';}btn.textContent='Create Account';btn.disabled=false;}
 </script>
 </body>
 </html>
