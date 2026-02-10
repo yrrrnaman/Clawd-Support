@@ -27,6 +27,10 @@ const PORT = config.dashboard.port || 3000;
 
 // Middleware
 app.use(express.json());
+app.get('/logo.svg', (req, res) => {
+  res.sendFile(path.join(__dirname, 'logo.svg'));
+});
+
 app.get('/favicon.svg', (req, res) => {
   res.sendFile(path.join(__dirname, 'favicon.svg'));
 });
